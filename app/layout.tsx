@@ -5,6 +5,7 @@ import "./globals.css";
 
 import { CartProvider } from "./context/CartContext";
 import { ToastProvider } from "./context/ToastContext";
+import { WishlistProvider } from "./context/WishlistContext";
 
 import Toast from "./components/ui/Toast";
 
@@ -36,10 +37,12 @@ export default function RootLayout({
         className={`${cormorant.variable} ${manrope.variable} antialiased`}
       >
         <ToastProvider>
-          <CartProvider>
-            {children}
-            <Toast />
-          </CartProvider>
+          <WishlistProvider>
+            <CartProvider>
+              {children}
+              <Toast />
+            </CartProvider>
+          </WishlistProvider>
         </ToastProvider>
       </body>
     </html>

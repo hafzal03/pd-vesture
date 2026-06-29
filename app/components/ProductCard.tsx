@@ -4,13 +4,41 @@ import Image from "next/image";
 import Link from "next/link";
 import { Heart, ShoppingBag } from "lucide-react";
 import { motion } from "framer-motion";
+
 import { Product } from "@/app/data/products";
+import { useWishlist } from "@/app/context/WishlistContext";
 
 interface Props {
   product: Product;
 }
 
 export default function ProductCard({ product }: Props) {
+  const {
+    addToWishlist,
+    removeFromWishlist,
+    isInWishlist,
+  } = useWishlist();
+
+  const liked = isInWishlist(product.id);
+
+  function toggleWishlist(
+    e: React.MouseEvent<HTMLButtonElement>
+  ) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    if (liked) {
+      removeFromWishlist(product.id);
+    } else {
+      addToWishlist({
+        id: product.id,
+        name: product.name,
+        price: product.price,
+        image: product.images[0],
+      });
+    }
+  }
+
   return (
     <motion.article
       whileHover={{ y: -8 }}
@@ -28,22 +56,38 @@ export default function ProductCard({ product }: Props) {
               className="object-cover transition duration-700 group-hover:scale-110"
             />
 
-            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 transition duration-300 group-hover:opacity-100" />
+            {/* Overlay */}
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 transition duration-300 group-hover:opacity-100" />
 
+            {/* Badge */}
             {product.badge && (
               <span className="absolute left-4 top-4 rounded-full bg-[#C9A14A] px-3 py-1 text-xs font-semibold uppercase tracking-wider text-black">
                 {product.badge}
               </span>
             )}
 
+            {/* Wishlist */}
             <button
               type="button"
-              className="absolute right-4 top-4 rounded-full bg-black/60 p-2 text-white backdrop-blur transition hover:bg-[#C9A14A] hover:text-black"
+              onClick={toggleWishlist}
+              className={`absolute right-4 top-4 z-20 rounded-full p-2 backdrop-blur transition-all duration-300 ${
+                liked
+                  ? "bg-[#C9A14A]"
+                  : "bg-black/60 hover:bg-[#C9A14A]"
+              }`}
             >
-              <Heart size={18} />
+              <Heart
+                size={18}
+                className={`transition-all duration-300 ${
+                  liked
+                    ? "fill-black text-black scale-110"
+                    : "fill-transparent text-white group-hover:scale-110"
+                }`}
+              />
             </button>
 
-            <div className="absolute bottom-6 left-0 right-0 flex justify-center opacity-0 transition duration-300 group-hover:opacity-100">
+            {/* View Product */}
+            <div className="pointer-events-none absolute bottom-6 left-0 right-0 flex justify-center opacity-0 transition duration-300 group-hover:opacity-100">
               <div className="flex items-center gap-2 rounded-full bg-[#C9A14A] px-6 py-3 text-sm font-semibold text-black">
                 <ShoppingBag size={18} />
                 View Product
