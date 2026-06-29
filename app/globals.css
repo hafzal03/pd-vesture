@@ -1,26 +1,111 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #0b0b0b;
+  --foreground: #f8f6f2;
+
+  --gold: #c9a14a;
+  --beige: #e6d9c5;
+  --brown: #5a4635;
+
+  --font-heading: serif;
+  --font-body: sans-serif;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-body);
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: var(--font-heading);
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+::selection {
+  background: var(--gold);
+  color: black;
+}
+
+/* Scrollbar */
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #111;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--gold);
+  border-radius: 20px;
+}
+
+.container {
+  width: min(1400px, 92%);
+  margin: auto;
+}
+
+.gold-text {
+  color: var(--gold);
+}
+
+.gold-border {
+  border: 1px solid var(--gold);
+}
+
+.section-title {
+  font-size: clamp(2rem, 5vw, 4rem);
+  font-weight: 600;
+  letter-spacing: 1px;
+  margin-bottom: 20px;
+}
+
+.subtitle {
+  color: #bcbcbc;
+  max-width: 650px;
+  line-height: 1.8;
+}
+
+.luxury-button {
+  background: transparent;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  padding: 14px 32px;
+  transition: .35s;
+  font-weight: 600;
+}
+
+.luxury-button:hover {
+  background: var(--gold);
+  color: black;
+}
+
+section {
+  padding: 100px 0;
 }
