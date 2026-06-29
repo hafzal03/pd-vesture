@@ -4,14 +4,14 @@ import FilterSidebar from "../components/products/FilterSidebar";
 import ProductGrid from "../components/ProductGrid";
 import SortDropdown from "../components/products/SortDropdown";
 
-export default function WomenPage() {
+export default function MenPage() {
   return (
     <main className="min-h-screen bg-[#0B0B0B] text-white">
       <PageBanner
         badge="PD_VESTURE"
-        title="Women's Collection"
-        description="Discover timeless fashion crafted with premium fabrics and modern elegance."
-        page="Women"
+        title="Men's Collection"
+        description="Luxury shirts, timeless tailoring, and premium craftsmanship for the modern gentleman."
+        page="Men"
       />
 
       <Container className="py-16">
@@ -26,14 +26,14 @@ export default function WomenPage() {
                 </h2>
 
                 <p className="mt-2 text-gray-500">
-                  4 Luxury Pieces
+                  Premium Men's Collection
                 </p>
               </div>
 
               <SortDropdown />
             </div>
 
-            <ProductGrid category="Women's" />
+            <ProductGrid category="Men" />
           </div>
         </div>
       </Container>
